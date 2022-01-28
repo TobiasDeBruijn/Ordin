@@ -181,7 +181,7 @@ impl AnsibleService {
 
         if !playbook.0.exists() {
             warn!("Ansible playbook {:?} does not exist", &playbook.0);
-            return Ok(())
+            return Ok(());
         }
 
         let child = Command::new(
@@ -210,8 +210,8 @@ impl AnsibleService {
         if self.play_log {
             let path = self.play_logdir.join(format!(
                 "{}-ansible_playbook_{}_{}-{}.log",
-                playbook.0.as_os_str().to_string_lossy(),
                 time::OffsetDateTime::now_utc().unix_timestamp(),
+                playbook.0.file_name().unwrap_or(OsStr::new("")).to_string_lossy(),
                 target.ip,
                 target.hostname
             ));
