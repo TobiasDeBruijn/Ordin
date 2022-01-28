@@ -57,6 +57,10 @@ ttl = 9100
 # The domain to use
 # E.g. if the hostname of the new machine is 'foo', and the domain is 'example.com', then it's DNS record will be set as 'foo.example.com'
 domain = 'example.com'
+# Should Ipv6 mode be enabled. Please note that if this is set to true, ipv4 addresses will no longer work
+ipv6 = false
+# The port to listen on
+port = 4040
 ```
 
 ## Contributing
