@@ -15,6 +15,9 @@ pub struct Config {
 #[derive(Deserialize, Serialize, Debug, Clone, Default)]
 pub struct GlobalConfig {
     pub domain: String,
+    pub ipv6: bool,
+    #[serde(default = "default_port")]
+    pub port: u16,
 }
 
 #[derive(Deserialize, Serialize, Debug, Clone, Default)]
@@ -32,6 +35,10 @@ pub struct AnsibleConfig {
     pub play_logs: bool,
     #[serde(default = "default_play_logdir")]
     pub play_logdir: PathBuf,
+}
+
+fn default_port() -> u16 {
+    4040
 }
 
 fn default_play_logdir() -> PathBuf {

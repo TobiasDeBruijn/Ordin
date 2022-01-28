@@ -48,6 +48,12 @@ async fn main() -> std::io::Result<()> {
         }
     };
 
+    let bind_addr = if config.global.ipv6 {
+        format!("[::]:{}", config.global.port)
+    } else {
+        format!("0.0.0.0:{}", config.global.port)
+    };
+
     let ansible_service = AnsibleService::new(&config).expect("Creating Ansible service");
     let dns_service = DnsService::new(&config);
     let appdata = ApplicationData::new(config, ansible_service, dns_service);
@@ -62,7 +68,7 @@ async fn main() -> std::io::Result<()> {
                 web::post().to(handlers::phone_home::phone_home),
             )
     })
-    .bind("[::]:4040")?
+    .bind(&bind_addr)?
     .run()
     .await
 }
