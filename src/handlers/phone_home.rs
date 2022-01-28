@@ -24,7 +24,7 @@ pub async fn phone_home(
             let ansible = data.ansible.clone();
 
             dns.run(&target).expect("Running DNS service");
-            ansible.run(&target).expect("Running DNS service");
+            ansible.run(&target).expect("Running Ansible service");
         })
         .expect("Spawning thread");
 

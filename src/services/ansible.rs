@@ -178,6 +178,12 @@ impl Service for AnsibleService {
 impl AnsibleService {
     fn run_playbook(&self, target: &Target, playbook: &Playbook) -> Result<(), AnsibleError> {
         trace!("Spawning ansible-playbook child process for {:?}", target);
+
+        if !playbook.0.exists() {
+            warn!("Ansible playbook {:?} does not exist", &playbook.0);
+            return Ok(())
+        }
+
         let child = Command::new(
             self.binary
                 .as_deref()
